@@ -32,19 +32,17 @@ public class Cons {
     public static final short BIT_PLAT = 4;
     public static final short BIT_SCOREPICKUP = 8;
 
-
-    public static final float TIME_TO_TRAVEL_1_DEPTH = 7000; // 6 seconds
-
     // Player Diameter
     public static final int BALL_DIAM = (VIR_WIDTH / 30)*3;
 
     // set Ball's Fall speed in terms of the device's Height!
+    public static final float TIME_TO_TRAVEL_1_DEPTH = 7000; // 6 seconds
     public static final float BALL_FALL_SPEED = -(VIR_HEIGHT / TIME_TO_TRAVEL_1_DEPTH)*10;
     public static final float BALL_X_FORCE = ((float) VIR_WIDTH / 1500) * 500;
 
 
     // Map info
-    public final static int PLATS_PER_DEPTH = 2;
+    public final static int PLATS_PER_DEPTH = 3;
 
 
     // Plat info

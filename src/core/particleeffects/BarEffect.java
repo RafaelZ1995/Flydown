@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import core.handlers.Res;
+import core.screens.PlayScreen;
 
 import static core.handlers.Cons.VIR_HEIGHT;
 import static core.handlers.Cons.VIR_WIDTH;
@@ -19,26 +20,34 @@ import static core.handlers.Cons.VIR_WIDTH;
  */
 public class BarEffect extends MyEffect {
 
+    // global effect management
+    private int currentParticleCount = 5;
+    private final int maxParticleCount = 20;
+    private String particlePath = "Particles/bgeffects/barEffect2.p";
+
+    private final PlayScreen playScreen;
     private float virX;
     private float virY;
 
-    public BarEffect() {
+    public BarEffect(PlayScreen playScreen) {
         super();
         initParticleEffect();
+        this.playScreen = playScreen;
     }
 
     private void initParticleEffect() {
         effect = new ParticleEffect();
-        //effect.load(Gdx.files.internal("Particles/bgeffects/3dtriEffect.p"), Gdx.files.internal(""));
-        effect.load(Gdx.files.internal("Particles/bgeffects/barEffect2.p"), Res.textureAtlas);
-        //effect.getEmitters().first().setMaxParticleCount(15);
+        effect.load(Gdx.files.internal(particlePath), Res.textureAtlas);
         effect.getEmitters().first().getScale().setHigh(VIR_HEIGHT / 10);
+        effect.getEmitters().first().setMaxParticleCount(currentParticleCount);
         effect.start();
     }
 
     private void update() {
         effect.setPosition(virX, virY);
         effect.update(Gdx.graphics.getDeltaTime());
+        int numSquares = Math.min(15, (int) playScreen.getPlaySpeed() * 3);
+        effect.getEmitters().first().getEmission().setHigh(numSquares);
     }
 
     @Override
@@ -60,6 +69,12 @@ public class BarEffect extends MyEffect {
     public void setPosition(float virX, float virY) {
         this.virX = virX;
         this.virY = virY;
+    }
+
+    public void setCurrentParticleCount(int playSpeed){
+        currentParticleCount = playSpeed * 2;
+        currentParticleCount = Math.min(currentParticleCount, maxParticleCount);
+        effect.getEmitters().first().setMaxParticleCount(currentParticleCount);
     }
 
     public boolean isComplete(){

@@ -2,16 +2,16 @@ Untitled
 - Delay -
 active: false
 - Duration - 
-lowMin: 5000.0
-lowMax: 5000.0
+lowMin: 3000.0
+lowMax: 3000.0
 - Count - 
 min: 5
 max: 50
 - Emission - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 5.0
-highMax: 5.0
+highMin: 1.0
+highMax: 1.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -20,13 +20,13 @@ timeline0: 0.0
 - Life - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 500.0
-highMax: 1000.0
+highMin: 3000.0
+highMax: 3000.0
 relative: false
 scalingCount: 3
 scaling0: 1.0
 scaling1: 1.0
-scaling2: 0.3
+scaling2: 1.0
 timelineCount: 3
 timeline0: 0.0
 timeline1: 0.66
@@ -124,4 +124,4 @@ additive: true
 behind: false
 premultipliedAlpha: true
 - Image Path -
-Fragment.png
+/C:/Users/Rafae/Libgdx Game WorkSpace/tools/Fragment.png

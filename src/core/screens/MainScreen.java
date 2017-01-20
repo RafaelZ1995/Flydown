@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -23,6 +24,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 
 import core.Hud.ArrowCharger;
+import core.Hud.MainScreenArrowCharger;
 import core.Hud.PlayHud;
 import core.Hud.Rain;
 import core.Pools.WallPool;
@@ -30,6 +32,7 @@ import core.game.GameApp;
 import core.handlers.MainScreenCL;
 import core.handlers.Res;
 import core.objects.Ball;
+import core.objects.MainScreenBall;
 import core.objects.Wall;
 import static core.handlers.Cons.LEFT_WALL_X;
 import static core.handlers.Cons.RIGHT_WALL_X;
@@ -67,26 +70,30 @@ public class MainScreen implements Screen {
     private boolean isDisposed = false;
 
     // player
-    private Ball player;
+    private MainScreenBall player;
 
     // UI
     private Stage stage;
     Button playButton;
     private boolean isBackStillPressed = false;
     private Rain rain;
-    private ArrowCharger arrowCharger;
-
+    private MainScreenArrowCharger arrowCharger;
 
     // Title
-    private PermanentText titlePText = new PermanentText("Infinite Flydown", VIR_WIDTH * 0.5f, VIR_HEIGHT * 0.9f);
+    private PermanentText titlePText = new PermanentText("Infinite Flydown", VIR_WIDTH * 0.5f, VIR_HEIGHT * 0.9f, "128");
 
     // lets use some Math to animate sizes!
     private double dt;
     private float playButtonExtraSize = 0;
 
+    private Tutorial tut;
+    private boolean renderInfo;
+    private InfoBlock infoBlock = new InfoBlock();;
+
     public MainScreen() {
         world = new World(new Vector2(0, -2.81f * 0), true);
         this.sb = GameApp.APP.getSb();
+
 
         world.setContactListener(new MainScreenCL());
 
@@ -104,16 +111,17 @@ public class MainScreen implements Screen {
         initializeMap();
 
         // spawn location should be fully based on Vir values
-        player = new Ball(world, new Vector2(VIR_WIDTH / 2, -VIR_HEIGHT / 2 - BALL_DIAM));
+        player = new MainScreenBall(world, new Vector2(VIR_WIDTH / 2, -VIR_HEIGHT / 2 - BALL_DIAM));
 
         // UI
         rain = new Rain();
-        arrowCharger = new ArrowCharger(player);
+        rain.forceMaxEffectParticles(20);
+        arrowCharger = new MainScreenArrowCharger(player);
         stage = new Stage();
+
+        // play button
         Drawable drawable1 = new TextureRegionDrawable(new TextureRegion(Res.playButtonRegion));
         playButton = new Button(drawable1);
-
-
         playButton.setWidth(VIR_WIDTH / 3);
         playButton.setHeight(VIR_HEIGHT / 5); // set in terms of texture.width? (png file)
         playButton.setOrigin(VIR_WIDTH / 3 / 2, VIR_HEIGHT / 5 / 2);
@@ -122,6 +130,25 @@ public class MainScreen implements Screen {
         playButton.setY(VIR_HEIGHT / 3 - playButton.getHeight() / 2);
         playButton.setColor(GameApp.CurrentThemeColor);
         stage.addActor(playButton);
+
+        // info button
+        Drawable drawable2 = new TextureRegionDrawable(new TextureRegion(Res.infoPlusRegion));
+        Button infoButton = new Button(drawable2);
+        infoButton.setSize(VIR_WIDTH * 0.15f, VIR_WIDTH * 0.15f);
+        infoButton.setOrigin(VIR_WIDTH * 0.1f / 2, VIR_WIDTH * 0.1f / 2);
+
+        infoButton.setPosition(VIR_WIDTH / 2 - infoButton.getWidth() / 2, VIR_HEIGHT * 0.1f);
+        infoButton.setColor(GameApp.CurrentThemeColor);
+        stage.addActor(infoButton);
+
+        infoButton.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                renderInfo = !renderInfo;
+                return true;
+            }
+        });
+
 
         // set both player and stage as input processors
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
@@ -132,7 +159,7 @@ public class MainScreen implements Screen {
         playButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Play button from Pseudo Main screen");
+                //System.out.println("Play button from Pseudo Main screen");
                 PlayScreen ps = new PlayScreen();
                 dispose();
                 GameApp.APP.setScreen(ps);
@@ -141,6 +168,7 @@ public class MainScreen implements Screen {
         });
 
 
+        tut = new Tutorial();
     }
 
     @Override
@@ -151,15 +179,14 @@ public class MainScreen implements Screen {
         if (isDisposed)
             return;
 
+        stage.act();
+        stage.draw();
         // update
         update();
-
         updateCameras(!centerOnPlayer); // game and b2d cams
-        stage.act();
         autoGenerateMap();
 
         sb.begin();
-
         // GAME CAM
         sb.setProjectionMatrix(GameApp.APP.getCam().combined);
         renderAndRemoveWalls();
@@ -167,16 +194,18 @@ public class MainScreen implements Screen {
 
         // HUD CAM
         sb.setProjectionMatrix(GameApp.APP.getFontcam().combined);
+
+        tut.render();
         rain.render(); // must put before stage.draw() apparently
-        Res.font128.getData().setScale(1f,2f);
+        //Res.font128.getData().setScale(1f,2f);
         titlePText.render();
-        Res.font128.getData().setScale(1f, 1f);
+        //Res.font128.getData().setScale(1f, 1f);
         arrowCharger.render();
-
-
-
-        stage.draw();
+        if (renderInfo)
+            infoBlock.render();
         sb.end();
+
+
 
         world.step(Gdx.graphics.getDeltaTime(), 6, 2);
     }
@@ -246,7 +275,6 @@ public class MainScreen implements Screen {
         if (currentDepth % 2 == 0 && !currentNgenerated) {
             currentNgenerated = true;
             generateWalls(); // draw currentDepth+1, and currentDepth+2 depth WALLS
-            System.out.println("GENERATING WHOLE MAP STEP");
             //generateScorePickups();
         }
     }
@@ -311,9 +339,6 @@ public class MainScreen implements Screen {
     }
 
     // GETTERS
-    public Ball getPlayer() {
-        return player;
-    }
 
     // SETTERS
 

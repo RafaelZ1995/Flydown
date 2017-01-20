@@ -2,12 +2,10 @@ package core.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -33,12 +31,6 @@ public class GameApp extends Game {
 
 
 
-    // fading in
-    private Stage stage;
-    private Table fadingTable;
-    private Pixmap pixmap;
-    private Drawable drawable;
-
     // my fade in
     private Sprite sprite;
     //private Texture texture;
@@ -62,7 +54,6 @@ public class GameApp extends Game {
     private OrthographicCamera cam;
     private Res res; // this does need to be initialized
     private OrthographicCamera fontcam;
-    private boolean isSplashDone;
     private float splashTime = 0;
 
     FPSLogger logger = new FPSLogger();
@@ -89,33 +80,22 @@ public class GameApp extends Game {
         // initialize main screen
         this.setScreen(new SplashScreen());
 
-
-        // fading in
-        stage = new Stage();
-        fadingTable = new Table();
-        //pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-
         // my fade in
         //texture = new Texture(Gdx.files.internal(Res.wallRegion));
         sprite = new Sprite(Res.wallRegion);
         sprite.setSize(VIR_WIDTH, VIR_HEIGHT);
         sprite.setColor(Color.BLACK);
-
-        System.out.println("Vir_WIDTH: " + VIR_WIDTH + "  Vir_HEIGHT: " + VIR_HEIGHT);
     }
 
     @Override
     public void render() {
-        //System.out.println("FPS: " + Gdx.graphics.getFramesPerSecond());
-        //logger.log();
-        //System.out.println("dt: " + Gdx.graphics.getDeltaTime() * 10);
 
-        sb.totalRenderCalls = 0;
+        //sb.totalRenderCalls = 0;
 
-        if (splashTime > 1.5)
+        if (splashTime > 2.5)
             shouldFadeOnce = true;
 
-        if (splashTime > 2){ // if true, then we are done loading
+        if (splashTime > 3){ // if true, then we are done loading
 
             if (!isMainScreenSet) {
                 APP.getScreen().dispose();
@@ -128,7 +108,7 @@ public class GameApp extends Game {
             splashTime += Gdx.graphics.getDeltaTime();
         }
 
-        int calls = sb.totalRenderCalls;
+        //int calls = sb.totalRenderCalls;
         //System.out.println("total calls: " + calls);
         if (shouldFadeOnce)
             renderFading();
@@ -162,10 +142,7 @@ public class GameApp extends Game {
             return;
         }
 
-
-
         sprite.setAlpha(currentFade);
-        //System.out.println(currentFade);
         sb.begin();
         sb.setProjectionMatrix(fontcam.combined);
         sprite.draw(sb);
@@ -190,6 +167,4 @@ public class GameApp extends Game {
     public OrthographicCamera getFontcam() {
         return fontcam;
     }
-
-
 }

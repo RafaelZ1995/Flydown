@@ -10,7 +10,7 @@ import static core.handlers.Cons.VIR_HEIGHT;
 import static core.handlers.Cons.VIR_WIDTH;
 
 /**
- * Created by Rafae on 12/26/2016.
+ * Created by Rafael on 12/26/2016.
  *
  * @@ YOU MOST DEFINITELY NEED TO INITIALIZE THE BMFONT IN THE GAME CLASS NOT HERE.
  *
@@ -23,7 +23,7 @@ public class PlayHud {
     private PlayScreen playScreen; // ((PlayScreen) (APP.getScreen())).getScore() could get like this
     private SpriteBatch sb;
     private int score;
-    private final float scoreX = VIR_WIDTH/2;
+    private final float scoreX = VIR_WIDTH/2  - Res.userFontSizeBig / 2;
     private final float scoreY = VIR_HEIGHT - VIR_HEIGHT/10;
 
     // add in ArrowCharger and Rain here?
@@ -50,9 +50,8 @@ public class PlayHud {
 
         // score rendering
         int depth = playScreen.getScore();
-        String depthString = String.valueOf(depth);
-        Res.font128.getData().setScale(1f, 1f);
-        Res.font128.draw(sb, depthString, scoreX - 56, scoreY); // font camera already set
+        String depthString = String.valueOf(depth) + "%";
+        Res.font128.draw(sb, depthString, scoreX, scoreY); // font camera already set
 
         arrowCharger.render();
         rain.render();

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import core.game.GameApp;
@@ -38,7 +39,7 @@ public class Plat extends Box2dPlat {
         effect = new ParticleEffect();
         effect.load(Gdx.files.internal("Particles/platEffect.p"), Res.textureAtlas);
         effect.getEmitters().first().setPosition(virX, virY);
-        effect.getEmitters().first().getScale().setHigh(PLAT_WIDTH);
+        effect.getEmitters().first().getScale().setHigh(width);
         effect.getEmitters().first().getTint().setColors(new float[]{1f, 1f, 1f});
         //effect.getEmitters().first().getRotation().setHigh(body.getAngle());
         //effect.scaleEffect(2);
@@ -48,7 +49,7 @@ public class Plat extends Box2dPlat {
     private void updateEffect() {
         if (effect.isComplete())
             effect.reset();
-        effect.setPosition(virX + PLAT_WIDTH / 2, virY - PLAT_HEIGHT);
+        effect.setPosition(virX + width / 2, virY - height);
         effect.update(Gdx.graphics.getDeltaTime());
         effect.getEmitters().first().getRotation().setHigh(sprite.getRotation()); // for rotation to work, the rotation button in the particle2d tool has to be on
     }
@@ -65,7 +66,24 @@ public class Plat extends Box2dPlat {
     public void render() {
         update();
         sprite.draw(sb);
-        effect.draw(sb, Gdx.graphics.getDeltaTime());
+        //effect.draw(sb, Gdx.graphics.getDeltaTime());
+    }
+
+    @Override
+    public void setSize(float width, float height) {
+
+        // body
+        PolygonShape s = (PolygonShape) body.getFixtureList().first().getShape();
+        this.width = width;
+        this.height = height;
+        s.setAsBox(width / 2 / PPM, height / 2 / PPM);
+
+        // sprite
+        sprite.setSize(width, height);
+        sprite.setOrigin(width / 2, height / 2);
+
+        // effects
+        effect.getEmitters().first().getScale().setHigh(width);
     }
 
 

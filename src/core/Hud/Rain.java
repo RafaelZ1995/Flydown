@@ -1,11 +1,13 @@
 package core.Hud;
 
         import com.badlogic.gdx.Gdx;
+        import com.badlogic.gdx.assets.loaders.resolvers.ExternalFileHandleResolver;
         import com.badlogic.gdx.graphics.g2d.ParticleEffect;
         import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
         import core.game.GameApp;
         import core.handlers.Res;
+        import core.screens.PlayScreen;
 
         import static core.handlers.Cons.VIR_HEIGHT;
         import static core.handlers.Cons.VIR_WIDTH;
@@ -16,11 +18,16 @@ package core.Hud;
  */
 public class Rain {
 
+    // global effect management
+    private int currentParticleCount = 3;
+    private final int maxParticleCount = 20;
+    private boolean isUpdateNeeded = false;
+
     //private
     private ParticleEffect effect;
     private float effectWidth = VIR_WIDTH;
     private float effectHeight = VIR_HEIGHT;
-    private float effectSize= VIR_WIDTH / 10;
+    private float effectSize= VIR_WIDTH * 0.1f;
 
     // make them final in Cons later+
     private float x = VIR_WIDTH / 2;
@@ -41,12 +48,31 @@ public class Rain {
         effect.getEmitters().first().getScale().setHigh(effectSize);
         effect.getEmitters().first().getSpawnWidth().setHigh(effectWidth);
         effect.getEmitters().first().getSpawnHeight().setHigh(effectHeight);
+        effect.getEmitters().first().setMaxParticleCount(currentParticleCount);
+        effect.getEmitters().first().setContinuous(false);
         effect.start();
     }
 
+    public void setMaxEffectParticles(int playSpeed){
+        isUpdateNeeded = true;
+        currentParticleCount = playSpeed * 2;
+    }
+
+    public void forceMaxEffectParticles(int n){
+        currentParticleCount = n;
+        effect.getEmitters().first().setMaxParticleCount(n);
+    }
+
     private void update(){
-        if (effect.isComplete())
+        //System.out.println("rainParticleCount: " + effect.getEmitters().first().getMaxParticleCount());
+
+
+        // only runs if effect is not continuos
+        if (effect.isComplete()) {
+            currentParticleCount = Math.min(currentParticleCount, maxParticleCount);
+            effect.getEmitters().first().setMaxParticleCount(currentParticleCount);
             effect.reset();
+        }
 
         effect.update(Gdx.graphics.getDeltaTime());
     }

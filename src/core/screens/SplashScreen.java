@@ -25,7 +25,7 @@ public class SplashScreen implements Screen{
     private ParticleEffect effect;
     private float effectWidth = VIR_WIDTH;
     private float effectHeight = VIR_HEIGHT;
-    private float effectSize= VIR_WIDTH / 10;
+    private float effectSize= VIR_WIDTH * 0.1f;
     private String particlePath = "Particles/bgeffects/rainFallEffect.p";
 
     // make final either in cons or another class that handles all bg effects

@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import core.game.GameApp;
 import core.handlers.Res;
 import core.objects.Ball;
+import core.objects.MainScreenBall;
+import core.screens.MainScreen;
 import core.screens.PlayScreen;
 
 import static core.handlers.Cons.VIR_HEIGHT;
@@ -18,7 +20,7 @@ import static core.handlers.Cons.VIR_WIDTH;
  * Learned: you gotta decrease the "duration" of the effect in order to do smooth effects as you change
  * the spanwidth of the effect from inside the code.
  */
-public class ArrowCharger {
+public class MainScreenArrowCharger {
 
     // make them final in Cons later
     private float x = VIR_WIDTH / 2;
@@ -32,12 +34,12 @@ public class ArrowCharger {
     private float playerxRatio;
 
     private SpriteBatch sb;
-    private Ball ball;
+    private MainScreenBall ball;
 
     /**
      * Constructor
      */
-    public ArrowCharger(Ball ball) {
+    public MainScreenArrowCharger(MainScreenBall ball) {
         sb = GameApp.APP.getSb();
         this.ball = ball;
         initParticleEffect();

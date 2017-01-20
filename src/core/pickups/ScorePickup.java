@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import core.handlers.Res;
 
 import static core.handlers.Cons.BALL_DIAM;
+import static core.handlers.Cons.PPM;
 
 /**
  * Created by Rafael on 1/2/2017.
@@ -15,12 +16,9 @@ import static core.handlers.Cons.BALL_DIAM;
 public class ScorePickup extends Pickup {
 
     private ParticleEffect effect;
-    private ParticleEffect barEffect;
-    private boolean isBarEffectOn = false;
 
     /**
      * Constructor
-     *
      * @param world
      * @param initVirX
      * @param initVirY
@@ -38,7 +36,6 @@ public class ScorePickup extends Pickup {
     public void render() {
         update();
         effect.draw(sb, Gdx.graphics.getDeltaTime());
-        barEffect.draw(sb, Gdx.graphics.getDeltaTime());
     }
 
     private void initParticleEffect() {
@@ -47,40 +44,24 @@ public class ScorePickup extends Pickup {
         effect.getEmitters().first().setPosition(virX, virY);
         effect.getEmitters().first().getScale().setHigh(BALL_DIAM / 2); // well this apperently sets the size of the effects
         effect.start();
-
-
-
-        barEffect = new ParticleEffect();
-        barEffect.load(Gdx.files.internal("Particles/ScorePickup.p"), Res.textureAtlas);
-        barEffect.getEmitters().first().setPosition(virX, virY);
-        barEffect.start();
-
     }
 
     /**
      * you always have to update the position here apparently.
      */
     private void updatePickupEffect() {
-        if (effect.isComplete())
-            effect.reset();
         effect.setPosition(virX, virY);
         effect.update(Gdx.graphics.getDeltaTime());
-
-        if (isBarEffectOn) {
-            System.out.println("bareffectOn = true");
-            if (barEffect.isComplete()){
-                System.out.println("bar effect is complete");
-                effect.reset();
-                isBarEffectOn = false;
-            }
-            barEffect.setPosition(virX, virY);
-            barEffect.update(Gdx.graphics.getDeltaTime());
-        }
     }
 
-    // bar effect to show when player picks up a scorepickup
-    public void runBarEffectOnce(){
-        isBarEffectOn = true;
+    /*
+    * of effect too
+     */
+    public void setPosition(float x, float y){
+        body.setTransform(x / PPM, y / PPM, 0);
+        virX = body.getPosition().x * PPM;
+        virY = body.getPosition().y * PPM;
+        effect.setPosition(virX, virY);
     }
 
     @Override
@@ -90,5 +71,9 @@ public class ScorePickup extends Pickup {
 
     @Override
     public void reset() {
+        setBodyPosition(0, 0);
+        effect.setPosition(0, 0);
+        virX = 0;
+        virY = 0;
     }
 }

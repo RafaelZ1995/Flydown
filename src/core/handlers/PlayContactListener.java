@@ -88,10 +88,8 @@ public class PlayContactListener implements ContactListener{
 
                 // set bar effect
                 playScreen.setBarEffect(sp.getX(), BALL_POS_ON_HUD);
-
                 // free This score pickup
-                playScreen.getScorePickups().removeValue(sp, true);
-                playScreen.getSpPool().free(sp);
+                playScreen.setToRemoveScorePickup(sp);
             }
         }
     }

@@ -20,9 +20,9 @@ import core.screens.PlayScreen;
 
 import static core.handlers.Cons.PPM;
 import static core.handlers.Cons.BALL_DIAM;
+import static core.handlers.Cons.BALL_FALL_SPEED;
 import static core.handlers.Cons.BALL_X_FORCE;
 import static core.handlers.Cons.FREE_ROAM;
-import static core.handlers.Cons.TIME_TO_TRAVEL_1_DEPTH;
 import static core.handlers.Cons.VIR_HEIGHT;
 import static core.handlers.Cons.VIR_WIDTH;
 
@@ -31,15 +31,12 @@ import static core.handlers.Cons.VIR_WIDTH;
  * Created by Rafael on 12/29/2016.
  * Player class but going to implement different input method (hold based)
  */
-public class Ball implements InputProcessor {
+public class MainScreenBall implements InputProcessor {
 
     // global effect management
-    private final int initTailLife = 1000;
-    private final int maxTailLife = 6000;
-    private float tailLifeMultiplier = 600;
+    private final int initTailLife = 4000;
     private float dt;
 
-    private final PlayScreen playScreen;
     private float timeToTravel1Depth = 7000; // 6 seconds
     private float fallSpeed = -(VIR_HEIGHT / timeToTravel1Depth) * 10;
     private boolean fallSpeedIsUpdated;
@@ -66,7 +63,6 @@ public class Ball implements InputProcessor {
     // PARTICLE EFFECTS
     private ParticleEffect effect;  // Change the "life" property of the effect to change how long the tail
     private ParticleEffect effect2;
-    private boolean effect1First;
 
     // variables for hold-based input
     private float maxHoldTime = 500; // in milliseconds
@@ -78,11 +74,10 @@ public class Ball implements InputProcessor {
     private boolean bodyDestroyed = false;
     private float maxXSpeed = ((float) VIR_WIDTH / 1500) * 10;
 
-    public Ball(World world, PlayScreen playScreen, Vector2 pos) {
+    public MainScreenBall(World world, Vector2 pos) {
         this.world = world;
         this.pos = pos;
         this.sb = GameApp.APP.getSb();
-        this.playScreen = playScreen;
         virX = pos.x;
         virY = pos.y;
         pos.scl(1 / PPM);
@@ -139,19 +134,24 @@ public class Ball implements InputProcessor {
     }
 
     private void updateSpeed() {
-            timeToTravel1Depth = TIME_TO_TRAVEL_1_DEPTH - playScreen.getPlaySpeed() * 300; // 6 seconds
-            if (timeToTravel1Depth < 3200)
-                timeToTravel1Depth = 3200;
-            //System.out.println("fallSpeedInTime: " + timeToTravel1Depth);
+        if (!fallSpeedIsUpdated) {
+            timeToTravel1Depth -= 500; // 6 seconds
             fallSpeed = -(VIR_HEIGHT / timeToTravel1Depth) * 10;
+            fallSpeedIsUpdated = true;
+        }
     }
+
+    private boolean effect1First = false;
+    private boolean alreadySwitched = false;
 
     /**
      * updateTailEffect
      */
     private void updateTailEffect() {
         dt += Gdx.graphics.getDeltaTime() * 1.5f;
-        //System.out.println("playSpeed: " + playScreen.getPlaySpeed() + "score: " + playScreen.getScore());
+
+
+        float diff = Math.abs((float) Math.sin(dt) - (float) -Math.sin(dt));
         if (Math.sin(dt) > 0f) {
             effect1First = true;
         }
@@ -159,6 +159,8 @@ public class Ball implements InputProcessor {
         if (Math.sin(dt) < -0f) {
             effect1First = false;
         }
+
+       // System.out.println(effect1First);
 
         float tempx = virX + (float) Math.sin(dt) * BALL_DIAM / 3;
         float tempx2 = virX + ((float) -Math.sin(dt)) * BALL_DIAM / 3;
@@ -168,13 +170,9 @@ public class Ball implements InputProcessor {
 
         effect2.setPosition(tempx2, virY);
         effect2.update(Gdx.graphics.getDeltaTime());
-    }
 
-    public void setTailLife(int playSpeed){
-        float tailLife = tailLifeMultiplier * playSpeed;
-        tailLife = Math.min(tailLife, maxTailLife);
-        effect.getEmitters().first().getLife().setHigh(tailLife);
-        effect2.getEmitters().first().getLife().setHigh(tailLife);
+
+        //System.out.println("tempx: " + (float) Math.sin(dt) + "      tempx22: " + (float) -Math.sin(dt) + "  diff: " + diff);
     }
 
     /**
@@ -205,7 +203,6 @@ public class Ball implements InputProcessor {
      */
     public void render() {
         update();
-
         if (effect1First){
             effect.draw(sb, Gdx.graphics.getDeltaTime());
             effect2.draw(sb, Gdx.graphics.getDeltaTime());

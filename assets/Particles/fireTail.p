@@ -2,16 +2,16 @@ Untitled
 - Delay -
 active: false
 - Duration - 
-lowMin: 5000.0
-lowMax: 5000.0
+lowMin: 3000.0
+lowMax: 3000.0
 - Count - 
-min: 5
-max: 50
+min: 0
+max: 200
 - Emission - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 5.0
-highMax: 5.0
+highMin: 250.0
+highMax: 250.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -38,14 +38,12 @@ active: false
 - Y Offset - 
 active: false
 - Spawn Shape - 
-shape: ellipse
-edges: false
-side: both
+shape: point
 - Spawn Width - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 64.0
-highMax: 64.0
+highMin: 0.0
+highMax: 0.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -54,8 +52,8 @@ timeline0: 0.0
 - Spawn Height - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 64.0
-highMax: 64.0
+highMin: 0.0
+highMax: 0.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -72,34 +70,55 @@ scaling0: 1.0
 timelineCount: 1
 timeline0: 0.0
 - Velocity - 
-active: false
+active: true
+lowMin: 0.0
+lowMax: 0.0
+highMin: 30.0
+highMax: 300.0
+relative: false
+scalingCount: 1
+scaling0: 1.0
+timelineCount: 1
+timeline0: 0.0
 - Angle - 
-active: false
+active: true
+lowMin: 90.0
+lowMax: 90.0
+highMin: 45.0
+highMax: 135.0
+relative: false
+scalingCount: 3
+scaling0: 1.0
+scaling1: 0.0
+scaling2: 0.0
+timelineCount: 3
+timeline0: 0.0
+timeline1: 0.5
+timeline2: 1.0
 - Rotation - 
 active: false
 - Wind - 
-active: false
+active: true
+lowMin: 0.0
+lowMax: 0.0
+highMin: 0.0
+highMax: 0.0
+relative: false
+scalingCount: 2
+scaling0: 1.0
+scaling1: 0.9411765
+timelineCount: 2
+timeline0: 0.0
+timeline1: 0.8150685
 - Gravity - 
 active: false
 - Tint - 
-colorsCount: 12
-colors0: 0.8901961
-colors1: 0.10980392
-colors2: 0.043137256
-colors3: 0.77254903
-colors4: 0.8039216
-colors5: 0.039215688
-colors6: 0.043137256
-colors7: 0.6509804
-colors8: 0.8901961
-colors9: 0.87058824
-colors10: 0.043137256
-colors11: 0.59607846
-timelineCount: 4
+colorsCount: 3
+colors0: 0.28235295
+colors1: 0.15294118
+colors2: 0.15294118
+timelineCount: 1
 timeline0: 0.0
-timeline1: 0.2685026
-timeline2: 0.62650603
-timeline3: 0.99827886
 - Transparency - 
 lowMin: 0.0
 lowMax: 0.0
@@ -118,10 +137,10 @@ timeline2: 0.8
 timeline3: 1.0
 - Options - 
 attached: false
-continuous: true
+continuous: false
 aligned: false
 additive: true
 behind: false
-premultipliedAlpha: true
+premultipliedAlpha: false
 - Image Path -
 Fragment.png

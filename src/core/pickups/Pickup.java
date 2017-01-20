@@ -59,7 +59,7 @@ public abstract class Pickup implements Pool.Poolable {
         // Define box2d body
         BodyDef bdef = new BodyDef();
         bdef.position.set(virX / PPM, virY / PPM);
-        bdef.type = BodyDef.BodyType.KinematicBody;
+        bdef.type = BodyDef.BodyType.StaticBody;
         body = world.createBody(bdef);
 
         // set shape

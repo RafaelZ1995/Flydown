@@ -30,17 +30,17 @@ public class ScoreStage {
     private SpriteBatch sb;
 
     // permanent texts
-    private final PermanentText overPText = new PermanentText("GAME OVER", VIR_WIDTH * 0.5f, VIR_HEIGHT * 0.90f);
-    private final PermanentText scoreText = new PermanentText("score", VIR_WIDTH * 0.25f, VIR_HEIGHT * 0.65f);
-    private final PermanentText bestText = new PermanentText("best", VIR_WIDTH * 0.75f, VIR_HEIGHT * 0.65f);
+    private final PermanentText overPText = new PermanentText("GAME OVER", VIR_WIDTH * 0.5f, VIR_HEIGHT * 0.90f, "128");
+    private final PermanentText scoreText = new PermanentText("score", VIR_WIDTH * 0.25f, VIR_HEIGHT * 0.65f, "64");
+    private final PermanentText bestText = new PermanentText("best", VIR_WIDTH * 0.75f, VIR_HEIGHT * 0.65f, "64");
 
     // current score
-    private final float scoreX = VIR_WIDTH * 0.25f - 128;
-    private final float scoreY = VIR_HEIGHT * 0.70f;
+    private float scoreX = VIR_WIDTH * 0.25f - Res.userFontSizeSmall;
+    private float scoreY = VIR_HEIGHT * 0.70f;
 
     // Best Score
-    private final float bestScoreX = VIR_WIDTH * 0.75f - 128;
-    private final float bestScoreY = VIR_HEIGHT * 0.70f;
+    private float bestScoreX = VIR_WIDTH * 0.75f - Res.userFontSizeSmall;
+    private float bestScoreY = VIR_HEIGHT * 0.70f;
 
     // fade background
     private Sprite bgSprite;
@@ -50,6 +50,10 @@ public class ScoreStage {
     private Button restartButton;
     private double dt;
     private float restartButtonExtraSize = 0;
+
+    // actual best score yet (int)
+    private String bestScore;
+    private String scoreStr;
 
     public ScoreStage(final PlayScreen playScreen) {
         this.playScreen = playScreen;
@@ -90,8 +94,6 @@ public class ScoreStage {
     }
 
     private void update() {
-
-
         // restart button
         dt += 0.02f;
         restartButtonExtraSize = (float) Math.sin(dt) * 70;
@@ -115,19 +117,20 @@ public class ScoreStage {
         bgSprite.draw(sb);
 
         // render permanent texts
-        Res.font128.getData().setScale(1f, 1f);
         overPText.render();
-        Res.font128.getData().setScale(0.4f);
         scoreText.render();
         bestText.render();
-        Res.font128.getData().setScale(1f, 1f);
 
         // render score
-        String scoreStr = String.valueOf(playScreen.getScore());
+        if (playScreen.getScore() > 9)
+            scoreX = VIR_WIDTH * 0.25f - Res.userFontSizeSmall;
+        scoreStr = String.valueOf(playScreen.getScore());
         Res.font128.draw(sb, scoreStr, scoreX, scoreY);
 
         // render best score
-        String bestScore = String.valueOf(Res.prefs.getInteger("bestscore"));
+        if (Res.prefs.getInteger("bestscore") > 9)
+            bestScoreX = VIR_WIDTH * 0.75f - Res.userFontSizeSmall;
+        bestScore = String.valueOf(Res.prefs.getInteger("bestscore"));
         Res.font128.draw(sb, bestScore, bestScoreX, bestScoreY);
 
 

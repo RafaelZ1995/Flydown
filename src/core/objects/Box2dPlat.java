@@ -106,7 +106,13 @@ public abstract class Box2dPlat implements Pool.Poolable{
         body.setAngularVelocity(f);
     }
 
+    public abstract void setSize(float width, float height);
+
     public void dispose(){
 
+    }
+
+    public float getWidth() {
+        return width;
     }
 }

@@ -39,6 +39,7 @@ import static core.handlers.Cons.SCALE;
 import static core.handlers.Cons.BALL_DIAM;
 import static core.handlers.Cons.PLAT_WIDTH;
 import static core.handlers.Cons.WALL_HEIGHT;
+import static core.handlers.Cons.WALL_WIDTH;
 
 /**
  * Created by Rafael on 10/3/2016.
@@ -62,6 +63,8 @@ public class PlayScreen implements Screen {
     private Array<BarEffect> barEffects;
     private Array<BallExplosion> ballExplosions;
 
+    private Array<Plat> lvlPlats;
+
     // Pools
     private PlatPool platPool;
     private WallPool wallPool;
@@ -79,6 +82,9 @@ public class PlayScreen implements Screen {
 
     // player
     private Ball player;
+    
+    private int playSpeed = 1;
+    private boolean isPlaySpeedUpdated = false;
 
     // Is this disposed
     private boolean isDisposed = false;
@@ -88,6 +94,10 @@ public class PlayScreen implements Screen {
 
     // pseudo Screen logic
     private boolean isPlayingScreen = true;
+
+
+    // debuging
+    private int pickupsCreated;
 
     public PlayScreen() {
         world = new World(new Vector2(0, 0), true);
@@ -103,25 +113,27 @@ public class PlayScreen implements Screen {
         b2dcam.setToOrtho(false, Gdx.graphics.getWidth() * SCALE / PPM, Gdx.graphics.getHeight() * SCALE / PPM);
 
 
-        // platforms array
+        // arrays
         platforms = new Array<Plat>();
         walls = new Array<Wall>();
         scorePickups = new Array<ScorePickup>();
         barEffects = new Array<BarEffect>();
         ballExplosions = new Array<BallExplosion>();
 
+        lvlPlats = new Array<Plat>();
+
         // Pools
         platPool = new PlatPool(world);
         wallPool = new WallPool(world);
         spPool = new ScorePickupPool(world);
-        barEffectPool = new BarEffectPool();
+        barEffectPool = new BarEffectPool(this);
         ballExplosionPool = new BallExplosionPool();
 
         // Map
         initializeMap();
 
         // spawn location should be fully based on Vir values
-        player = new Ball(world, new Vector2(VIR_WIDTH / 2, -VIR_HEIGHT / 2 - BALL_DIAM));
+        player = new Ball(world, this, new Vector2(VIR_WIDTH / 2, -VIR_HEIGHT / 2 - BALL_DIAM));
         hud = new core.Hud.PlayHud(this);
 
         scoreStage = new ScoreStage(this);
@@ -158,20 +170,24 @@ public class PlayScreen implements Screen {
     */
     boolean currentNgenerated = false; // have (currentDepth+1) and (currentDepth+2) plats been generated?
 
-    private void autoGenerateMap(){
+    private void autoGenerateMap() {
+        //System.out.println("Map-Step,  num pickups: " + scorePickups.size);
         currentDepth = Math.abs((int) (player.getVirY() / WALL_HEIGHT));
 
         if (currentDepth % 2 == 1)
             currentNgenerated = false;
 
-        if (currentDepth % 2 == 0 && !currentNgenerated){
+        if (currentDepth % 2 == 0 && !currentNgenerated) {
             currentNgenerated = true;
             generateWalls(); // draw currentDepth+1, and currentDepth+2 depth WALLS
-            generatePlats();
+            generatePlats2();
         }
     }
 
     private Plat prevPlat = null; // necessary to build a ScorePickup between every platform, (instance variable scope is necessary to link the 8th and the 9th)
+
+    private Plat prevLeftPlat = null;
+    private Plat prevRightPlat = null; // btw might this cause problems for the pool
     /**
      * generates the n-1, n, n+1 walls (n is currentDepth)
      * so basically generates 8 plats at a time
@@ -184,7 +200,7 @@ public class PlayScreen implements Screen {
             // 4 plats per depth
             for (int j = 0; j < PLATS_PER_DEPTH; j++) {
                 // (int)(BALL_DIAM*1.5) to leave 1.5 of diam as minimum space for ball to pass thru
-                float r = MathUtils.random((float)(BALL_DIAM *1.5), VIR_WIDTH - PLAT_WIDTH - (float)(BALL_DIAM *1.5));
+                float r = MathUtils.random((float) (BALL_DIAM * 1.5), VIR_WIDTH - PLAT_WIDTH - (float) (BALL_DIAM * 1.5));
 
                 // Get CURRENT PLAT
                 Plat plat = platPool.obtain();
@@ -192,7 +208,7 @@ public class PlayScreen implements Screen {
                 //                   r,   -(overall depth, top of screen) - ( depth between each plat)
 
                 // update angular velocity, when player depth (currentDepth) is > 1, start adding angular velocity
-                if (currentDepth > 1 && j % 2 == 0){
+                if (currentDepth > 1 && j % 2 == 0) {
                     // Handle Angular Velocity
                     float rAngle = MathUtils.random(1f, 2f);
                     rightAngularVelocity = !rightAngularVelocity;
@@ -205,7 +221,7 @@ public class PlayScreen implements Screen {
 
 
                 // Generate Pickups
-                if (prevPlat != null){
+                if (prevPlat != null) {
                     float spX = (prevPlat.getX() + plat.getX()) / 2 + PLAT_WIDTH / 2;
                     float spY = (prevPlat.getY() + plat.getY()) / 2 + PLAT_HEIGHT / 2;
                     ScorePickup sp = spPool.obtain();
@@ -218,13 +234,58 @@ public class PlayScreen implements Screen {
         }
     }
 
+    public void generatePlats2() {
+        // draw currentDepth+1, and currentDepth+2 depth PLATFORMS
+        for (int i = 1; i < 3; i++) { // 3 should always stay as a 3
+            // 4 plats per depth
+            for (int j = 0; j < PLATS_PER_DEPTH; j++) {
+                float y = (-(currentDepth + i) * VIR_HEIGHT - j * (VIR_HEIGHT / PLATS_PER_DEPTH));
+
+                // decreasing gap widths
+                float gapWidth = (float) VIR_WIDTH / 2 - playSpeed * VIR_WIDTH * 0.04f;
+                gapWidth = Math.max(gapWidth, (float) (BALL_DIAM * 2));
+
+
+                float leftWidth = MathUtils.random(VIR_WIDTH * 0.05f,  VIR_WIDTH - gapWidth - VIR_WIDTH * 0.05f);
+                // Get CURRENT PLAT
+                Plat leftPlat = platPool.obtain();
+                leftPlat.setSize(leftWidth, PLAT_HEIGHT);
+                leftPlat.setBodyPosition(WALL_WIDTH, y);
+
+                //                   r,   -(overall depth, top of screen) - ( depth between each plat)
+
+                Plat rightPlat = platPool.obtain();
+                rightPlat.setSize(VIR_WIDTH - leftWidth - gapWidth, PLAT_HEIGHT);
+                rightPlat.setBodyPosition(leftPlat.getWidth() + gapWidth, y);
+
+                platforms.add(leftPlat);
+                platforms.add(rightPlat);
+
+
+
+                if (prevLeftPlat != null && prevRightPlat != null) {
+                    float spX = (prevLeftPlat.getX() + rightPlat.getX()) / 2 + PLAT_WIDTH / 2;
+                    float spY = (prevLeftPlat.getY() + rightPlat.getY()) / 2 + PLAT_HEIGHT / 2;
+                    ScorePickup sp = new ScorePickup(world, spX, spY);
+                    scorePickups.add(sp);
+                    pickupsCreated++;
+                }
+                prevLeftPlat = leftPlat;
+                prevRightPlat = rightPlat;
+            }
+
+        }
+
+        //System.out.println("numpikcups in array: " + scorePickups.size + "   total pickups created: " + pickupsCreated);
+    }
+
     /**
      * generates the n-1, n, n+1 walls (n is currentDepth)
      */
     private void generateWalls() {
-        for (int i = 1; i < 3; i++){
+        for (int i = 1; i < 3; i++) {
             Wall leftSide = wallPool.obtain();
-            leftSide.setBodyPosition(LEFT_WALL_X,  -(currentDepth + i) * WALL_HEIGHT);
+            leftSide.setBodyPosition(LEFT_WALL_X, -(currentDepth + i) * WALL_HEIGHT);
 
             Wall rightSide = wallPool.obtain();
             rightSide.setBodyPosition(RIGHT_WALL_X, -(currentDepth + i) * WALL_HEIGHT);
@@ -242,9 +303,10 @@ public class PlayScreen implements Screen {
         if (isDisposed) // must come right after handleBackInput()
             return;
 
-        updateColor();
+        updatePlaySpeed();
 
-        if (player.isCrashed() && !player.isBodyDestroyed()){
+
+        if (player.isCrashed() && !player.isBodyDestroyed()) {
             Gdx.input.setInputProcessor(scoreStage.getStage());
             updateBestScore(currentScore);
             isPlayingScreen = false;
@@ -253,8 +315,9 @@ public class PlayScreen implements Screen {
             }
         }
 
+        //b2dr.render(world, b2dcam.combined);
 
-    if (isPlayingScreen){
+        if (isPlayingScreen) {
             // updating
             autoGenerateMap();
 
@@ -262,19 +325,24 @@ public class PlayScreen implements Screen {
 
             // rendering
             sb.begin();
+
             sb.setProjectionMatrix(GameApp.APP.getFontcam().combined);
             renderAndRemoveBarEffects();
 
             // GAME CAM
             sb.setProjectionMatrix(GameApp.APP.getCam().combined);
+
             renderAndRemovePlats();
             renderAndRemoveWalls();
             renderAndFreeScorePickups();
             player.render();
 
+
             sb.setProjectionMatrix(GameApp.APP.getFontcam().combined);
             hud.render();
             sb.end();
+
+
         } else { // else scoreStage
             scoreStage.getStage().act();
             sb.begin();
@@ -283,8 +351,8 @@ public class PlayScreen implements Screen {
             renderAndRemovePlats();
             renderAndRemoveWalls();
             renderAndFreeScorePickups();
-            for (BallExplosion b: ballExplosions)
-                    b.render();
+            for (BallExplosion b : ballExplosions)
+                b.render();
 
             // Hud cam
             sb.setProjectionMatrix(GameApp.APP.getFontcam().combined);
@@ -297,26 +365,32 @@ public class PlayScreen implements Screen {
             sb.end();
         }
 
+
+        //System.out.println("num pickups: " + scorePickups.size + "  num plats " + platforms.size);
         world.step(Gdx.graphics.getDeltaTime(), 6, 2);
     }
 
-    private void updateColor() {
+    private void updatePlaySpeed() {
+        if (getScore() % 3 == 0 && getScore() != 0){
+            if (!isPlaySpeedUpdated){
+                playSpeed++;
+                isPlaySpeedUpdated = true;
 
-        if (currentScore == 3){
-            GameApp.CurrentThemeColor = Color.CYAN;
+                // update Rain's count, bg's count, ball's count, .., color // make an animation with the score font to clearly indicate you reached a new "playSpeed"
+                // so have all of the things named above have a starting particleCount, a max particlecount, ect..
+                // and they will all have a method updateEffect()
+                hud.getRain().setMaxEffectParticles(playSpeed);
+                player.setTailLife(playSpeed);
+            }
+        } else{
+            isPlaySpeedUpdated = false;
         }
-        if (currentScore == 6){
-            GameApp.CurrentThemeColor = Color.BLUE;
-        }
-        if (currentScore == 9){
-            GameApp.CurrentThemeColor = Color.SKY;
-        }
-
     }
+
 
     private void updateBestScore(int currentScore) {
         int bestScore = Res.prefs.getInteger("bestscore");
-        if (currentScore > bestScore){
+        if (currentScore > bestScore) {
             Res.prefs.putInteger("bestscore", currentScore);
             Res.prefs.flush();
         }
@@ -325,8 +399,8 @@ public class PlayScreen implements Screen {
     /**
      * Puts Walls and their 2d bodies that were left behind back into the wallPool.
      */
-    private void renderAndRemoveWalls(){
-        for (Wall w : walls){
+    private void renderAndRemoveWalls() {
+        for (Wall w : walls) {
             w.render();
             if (currentDepth > 2) {
                 if (w.getY() > -(currentDepth - 2) * VIR_HEIGHT) {
@@ -342,35 +416,48 @@ public class PlayScreen implements Screen {
      */
     private void renderAndRemovePlats() {
 
-        for (Plat p : platforms){
+        for (Plat p : platforms) {
             p.render();
-            if (currentDepth > 2) {
-                if (p.getY() > -(currentDepth - 2) * VIR_HEIGHT) {
+                if (p.getY() > player.getVirY() + VIR_HEIGHT / 2) {
                     platforms.removeValue(p, true); // true is to use .equals()
                     platPool.free(p); // add back to pool
                 }
-            }
         }
     }
 
     /**
      * render ScorePickups and free them if player is already past them
      */
-    private void renderAndFreeScorePickups(){
-        for (ScorePickup sp : scorePickups){
-            sp.render();
-            if (currentDepth > 2) {
-                if (sp.getY() > -(currentDepth - 2) * VIR_HEIGHT) {
-                    scorePickups.removeValue(sp, true); // true is to use .equals()
-                    spPool.free(sp); // add back to pool
-                }
-            }
+    private void renderAndFreeScorePickups() {
+
+        // remove ones signaled by PlayContactListener
+        for (ScorePickup sp : spToRemove){
+            scorePickups.removeValue(sp, true); // true is to use .equals()
+            spToRemove.removeValue(sp, true);
         }
+
+
+        for (ScorePickup sp : scorePickups) {
+                if (sp.getY() > player.getVirY() + VIR_HEIGHT / 2) {
+                    scorePickups.removeValue(sp, true); // true is to use .equals()
+
+                }else{
+                    sp.render();
+                }
+        }
+
+
     }
 
-    private void renderAndRemoveBarEffects(){
+    private Array<ScorePickup> spToRemove = new Array<ScorePickup>();
+
+    public void setToRemoveScorePickup(ScorePickup sp){
+        spToRemove.add(sp);
+    }
+
+    private void renderAndRemoveBarEffects() {
         for (BarEffect be : barEffects) {
-            if (be.isComplete()){
+            if (be.isComplete()) {
                 barEffects.removeValue(be, true);
                 barEffectPool.free(be);
             }
@@ -395,7 +482,7 @@ public class PlayScreen implements Screen {
             GameApp.APP.getCam().position.set(VIR_WIDTH / 2, player.getVirY() - VIR_HEIGHT * 0.20f, 0);
             GameApp.APP.getCam().update();
 
-            b2dcam.position.set(VIR_WIDTH / 2 / PPM, player.getVirY() / PPM - (VIR_HEIGHT / 7) / PPM, 0);
+            b2dcam.position.set(VIR_WIDTH / 2 / PPM, player.getVirY() / PPM - VIR_HEIGHT * 0.2f / PPM, 0);
             b2dcam.update();
 
         }
@@ -407,9 +494,9 @@ public class PlayScreen implements Screen {
      * GOTTA IMPLEMENT THIS IN A DIFF WAY CAUSE U GOTTA MAKE SURE YOU STOP THE CURRENT RENDER
      * LOOP WITH A RETURN, SO THAT NOTHING ELSE IS CALLED ONCE EVERYTHING IS DISPOSED
      */
-    private void handleBackInput(){
-        if (Gdx.input.isKeyPressed(Input.Keys.BACK)){
-            if (!isPlayingScreen){
+    private void handleBackInput() {
+        if (Gdx.input.isKeyPressed(Input.Keys.BACK)) {
+            if (!isPlayingScreen) {
                 GameApp.APP.isBackPressed = true;
                 dispose();
                 isDisposed = true;
@@ -445,13 +532,14 @@ public class PlayScreen implements Screen {
 
     // SETTERS
 
-    public void setBarEffect(float virX, float virY){
+    public void setBarEffect(float virX, float virY) {
         BarEffect be = barEffectPool.obtain();
         be.setPosition(virX, virY);
+        be.setCurrentParticleCount(playSpeed);
         barEffects.add(be);
     }
 
-    public void renderBallExplosion(float virX, float virY){
+    public void renderBallExplosion(float virX, float virY) {
         BallExplosion be = ballExplosionPool.obtain();
         be.setPosition(virX, virY);
         ballExplosions.add(be);
@@ -489,5 +577,9 @@ public class PlayScreen implements Screen {
             be.dispose();
         for (BallExplosion be : ballExplosions)
             be.dispose();
+    }
+
+    public float getPlaySpeed() {
+        return playSpeed;
     }
 }

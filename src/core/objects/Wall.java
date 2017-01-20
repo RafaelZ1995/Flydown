@@ -41,6 +41,11 @@ public class Wall extends Box2dPlat {
         sprite.draw(sb);
     }
 
+    @Override
+    public void setSize(float width, float height) {
+
+    }
+
 
     @Override
     public void reset() {
