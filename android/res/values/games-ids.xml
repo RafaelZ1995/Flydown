@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Google Play game services IDs.
+Save this file as res/values/games-ids.xml in your project.
+-->
+<resources>
+    <string name="app_id">964508062838</string>
+    <string name="package_name">unconventional.gamez.game</string>
+    <string name="achievement_10_orbs">CgkI9qikiYkcEAIQAQ</string>
+    <string name="achievement_20_orbs">CgkI9qikiYkcEAIQAg</string>
+    <string name="achievement_30_orbs_getting_the_hang_of_it">CgkI9qikiYkcEAIQAw</string>
+    <string name="achievement_50_orbs_starting_to_feel_tight">CgkI9qikiYkcEAIQBA</string>
+    <string name="achievement_77_orbs_as_far_as_ive_gotten">CgkI9qikiYkcEAIQBQ</string>
+    <string name="achievement_100_orbs_will_you_reign_the_leaderboards">CgkI9qikiYkcEAIQBg</string>
+    <string name="leaderboard_how_deep_can_you_go">CgkI9qikiYkcEAIQBw</string>
+</resources>

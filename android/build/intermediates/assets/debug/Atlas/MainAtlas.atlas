@@ -1,0 +1,83 @@
+
+MainAtlas.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Ball
+  rotate: false
+  xy: 2, 360
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+BarEffectBlock
+  rotate: false
+  xy: 776, 488
+  size: 1, 128
+  orig: 1, 128
+  offset: 0, 0
+  index: -1
+BlackArrow
+  rotate: false
+  xy: 2, 618
+  size: 800, 288
+  orig: 800, 288
+  offset: 0, 0
+  index: -1
+Fragment
+  rotate: false
+  xy: 2, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+Info
+  rotate: false
+  xy: 2, 102
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+InfoPlus
+  rotate: false
+  xy: 260, 360
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+PlatTile
+  rotate: false
+  xy: 2, 36
+  size: 256, 64
+  orig: 256, 64
+  offset: 0, 0
+  index: -1
+Play
+  rotate: false
+  xy: 260, 102
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+Restart
+  rotate: false
+  xy: 518, 360
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+Tap
+  rotate: false
+  xy: 518, 102
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+WallTile
+  rotate: false
+  xy: 804, 778
+  size: 16, 128
+  orig: 16, 128
+  offset: 0, 0
+  index: -1

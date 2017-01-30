@@ -1,0 +1,577 @@
+[
+    {
+        "outputFile": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-af\\values-af.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 105,
+                    "endColumn": 103,
+                    "endOffset": 204
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\20.0.0\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 56,
+                        "endColumn": 103,
+                        "endOffset": 155
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 209,
+                    "endColumn": 99,
+                    "endOffset": 304
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\20.0.0\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 160,
+                        "endColumn": 99,
+                        "endOffset": 255
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 309,
+                    "endColumn": 105,
+                    "endOffset": 410
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\20.0.0\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 260,
+                        "endColumn": 105,
+                        "endOffset": 361
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 415,
+                    "endColumn": 84,
+                    "endOffset": 495
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\20.0.0\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 366,
+                        "endColumn": 84,
+                        "endOffset": 446
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 500,
+                    "endColumn": 102,
+                    "endOffset": 598
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\20.0.0\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 451,
+                        "endColumn": 102,
+                        "endOffset": 549
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 603,
+                    "endColumn": 117,
+                    "endOffset": 716
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\20.0.0\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 554,
+                        "endColumn": 117,
+                        "endOffset": 667
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 721,
+                    "endColumn": 106,
+                    "endOffset": 823
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\20.0.0\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 672,
+                        "endColumn": 106,
+                        "endOffset": 774
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 828,
+                    "endColumn": 102,
+                    "endOffset": 926
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\20.0.0\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 779,
+                        "endColumn": 102,
+                        "endOffset": 877
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 931,
+                    "endColumn": 96,
+                    "endOffset": 1023
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\20.0.0\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 4,
+                        "startOffset": 882,
+                        "endColumn": 96,
+                        "endOffset": 974
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 1028,
+                    "endColumn": 107,
+                    "endOffset": 1131
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\20.0.0\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 979,
+                        "endColumn": 107,
+                        "endOffset": 1082
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 1136,
+                    "endColumn": 101,
+                    "endOffset": 1233
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\20.0.0\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 1087,
+                        "endColumn": 101,
+                        "endOffset": 1184
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 13,
+                    "startColumn": 4,
+                    "startOffset": 1238,
+                    "endColumn": 101,
+                    "endOffset": 1335
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\20.0.0\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 4,
+                        "startOffset": 1189,
+                        "endColumn": 101,
+                        "endOffset": 1286
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 1340,
+                    "endColumn": 116,
+                    "endOffset": 1452
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\20.0.0\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 1291,
+                        "endColumn": 116,
+                        "endOffset": 1403
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 1457,
+                    "endColumn": 108,
+                    "endOffset": 1561
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.0.1\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 0,
+                        "startOffset": 283,
+                        "endColumn": 104,
+                        "endOffset": 387
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 1566,
+                    "endColumn": 187,
+                    "endOffset": 1749
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.0.1\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 0,
+                        "startOffset": 388,
+                        "endColumn": 187,
+                        "endOffset": 575
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 17,
+                    "startColumn": 4,
+                    "startOffset": 1754,
+                    "endColumn": 127,
+                    "endOffset": 1877
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.0.1\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 0,
+                        "startOffset": 576,
+                        "endColumn": 123,
+                        "endOffset": 699
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 1882,
+                    "endColumn": 111,
+                    "endOffset": 1989
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.0.1\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 0,
+                        "startOffset": 700,
+                        "endColumn": 107,
+                        "endOffset": 807
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 19,
+                    "startColumn": 4,
+                    "startOffset": 1994,
+                    "endColumn": 208,
+                    "endOffset": 2198
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.0.1\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 0,
+                        "startOffset": 808,
+                        "endColumn": 208,
+                        "endOffset": 1016
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 20,
+                    "startColumn": 4,
+                    "startOffset": 2203,
+                    "endColumn": 123,
+                    "endOffset": 2322
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.0.1\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 0,
+                        "startOffset": 1017,
+                        "endColumn": 119,
+                        "endOffset": 1136
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 21,
+                    "startColumn": 4,
+                    "startOffset": 2327,
+                    "endColumn": 130,
+                    "endOffset": 2453
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.0.1\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 0,
+                        "startOffset": 1137,
+                        "endColumn": 126,
+                        "endOffset": 1263
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 22,
+                    "startColumn": 4,
+                    "startOffset": 2458,
+                    "endColumn": 201,
+                    "endOffset": 2655
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\10.0.1\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 0,
+                        "startOffset": 285,
+                        "endColumn": 201,
+                        "endOffset": 486
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 23,
+                    "startColumn": 4,
+                    "startOffset": 2660,
+                    "endColumn": 224,
+                    "endOffset": 2880
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.0.1\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 0,
+                        "startOffset": 1264,
+                        "endColumn": 224,
+                        "endOffset": 1488
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 24,
+                    "startColumn": 4,
+                    "startOffset": 2885,
+                    "endColumn": 109,
+                    "endOffset": 2990
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.0.1\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 0,
+                        "startOffset": 1489,
+                        "endColumn": 105,
+                        "endOffset": 1594
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 25,
+                    "startColumn": 4,
+                    "startOffset": 2995,
+                    "endColumn": 187,
+                    "endOffset": 3178
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.0.1\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 0,
+                        "startOffset": 1595,
+                        "endColumn": 187,
+                        "endOffset": 1782
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 26,
+                    "startColumn": 4,
+                    "startOffset": 3183,
+                    "endColumn": 128,
+                    "endOffset": 3307
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.0.1\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 0,
+                        "startOffset": 1783,
+                        "endColumn": 124,
+                        "endOffset": 1907
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 27,
+                    "startColumn": 4,
+                    "startOffset": 3312,
+                    "endColumn": 197,
+                    "endOffset": 3505
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.0.1\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 0,
+                        "startOffset": 1908,
+                        "endColumn": 197,
+                        "endOffset": 2105
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 28,
+                    "startColumn": 4,
+                    "startOffset": 3510,
+                    "endColumn": 183,
+                    "endOffset": 3689
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.0.1\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 0,
+                        "startOffset": 2106,
+                        "endColumn": 179,
+                        "endOffset": 2285
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 29,
+                    "startColumn": 4,
+                    "startOffset": 3694,
+                    "endColumn": 95,
+                    "endOffset": 3785
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.0.1\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 0,
+                        "startOffset": 2286,
+                        "endColumn": 91,
+                        "endOffset": 2377
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 30,
+                    "startColumn": 4,
+                    "startOffset": 3790,
+                    "endColumn": 92,
+                    "endOffset": 3878
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.0.1\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 0,
+                        "startOffset": 2378,
+                        "endColumn": 88,
+                        "endOffset": 2466
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 31,
+                    "startColumn": 4,
+                    "startOffset": 3883,
+                    "endColumn": 107,
+                    "endOffset": 3986
+                },
+                "from": {
+                    "file": "C:\\Users\\Rafae\\Libgdx Game WorkSpace\\Infinite Flydown v1\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\10.0.1\\res\\values-af\\values.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 0,
+                        "startOffset": 2467,
+                        "endColumn": 103,
+                        "endOffset": 2570
+                    }
+                }
+            }
+        ]
+    }
+]
